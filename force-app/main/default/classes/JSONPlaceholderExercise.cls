@@ -8,13 +8,13 @@ public class JSONPlaceholderExercise {
      * @return String - The JSON response from the API
      */
     public static String getPostById(Integer postId) {
-        // TODO: Student Implementation
-        // 1. Create a new HTTP request
-        // 2. Set the endpoint URL using BASE_URL + '/posts/' + postId
-        // 3. Set the HTTP method to 'GET'
-        // 4. Send the request and get the response
-        // 5. Return the response body as string
-        return null;
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(BASE_URL + '/posts/' + postId);
+        request.setMethod('GET');
+        Http http = new Http();
+        HttpResponse response = http.send(request);
+
+        return response.getBody();
     }
     
     /**
@@ -26,15 +26,20 @@ public class JSONPlaceholderExercise {
      * @return String - The JSON response from the API
      */
     public static String createPost(String title, String body, Integer userId) {
-        // TODO: Student Implementation
-        // 1. Create a new HTTP request
-        // 2. Set the endpoint URL using BASE_URL + '/posts'
-        // 3. Set the HTTP method to 'POST'
-        // 4. Create a JSON string with the post data
-        // 5. Set the request body
-        // 6. Send the request and get the response
-        // 7. Return the response body as string
-        return null;
+        
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(BASE_URL + 'posts');
+        request.setMethod('POST');
+        Map<String, String> dataMap = new Map<String, String>{
+            'favorite language' => 'apex'
+        };
+        String jsonString = JSON.serialize(dataMap);
+        request.setBody(jsonString);
+        
+        Http http = new Http();
+        HttpResponse response = http.send(request);
+
+        return response.getBody();
     }
     
     /**
@@ -47,15 +52,16 @@ public class JSONPlaceholderExercise {
      * @return String - The JSON response from the API
      */
     public static String updatePost(Integer postId, String title, String body, Integer userId) {
-        // TODO: Student Implementation
-        // 1. Create a new HTTP request
-        // 2. Set the endpoint URL using BASE_URL + '/posts/' + postId
-        // 3. Set the HTTP method to 'PUT'
-        // 4. Create a JSON string with the updated post data
-        // 5. Set the request body
-        // 6. Send the request and get the response
-        // 7. Return the response body as string
-        return null;
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(BASE_URL + '/posts/' + postId);
+        request.setMethod('PUT');
+        String httpBody = 'title: ' + title + '\r body: ' + body;
+        request.setBody(JSON.serialize(httpBody));
+        
+        Http http = new Http();
+        HttpResponse response = http.send(request);
+
+        return response.getBody();
     }
     
     /**
@@ -66,15 +72,19 @@ public class JSONPlaceholderExercise {
      * @return String - The JSON response from the API
      */
     public static String patchPostTitle(Integer postId, String title) {
-        // TODO: Student Implementation
-        // 1. Create a new HTTP request
-        // 2. Set the endpoint URL using BASE_URL + '/posts/' + postId
-        // 3. Set the HTTP method to 'PATCH'
-        // 4. Create a JSON string with only the title
-        // 5. Set the request body
-        // 6. Send the request and get the response
-        // 7. Return the response body as string
-        return null;
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(BASE_URL + '/posts/' + postId);
+        request.setMethod('PATCH');
+
+        Map<String, String> titles = new Map<String, String>{
+            'title' => title
+        };
+
+        request.setBody(JSON.serialize(titles));
+        Http http = new Http();
+        HttpResponse response = http.send(request);
+        
+        return response.getBody();
     }
     
     /**
@@ -84,12 +94,13 @@ public class JSONPlaceholderExercise {
      * @return Integer - The HTTP status code from the response
      */
     public static Integer deletePost(Integer postId) {
-        // TODO: Student Implementation
-        // 1. Create a new HTTP request
-        // 2. Set the endpoint URL using BASE_URL + '/posts/' + postId
-        // 3. Set the HTTP method to 'DELETE'
-        // 4. Send the request and get the response
-        // 5. Return the response status code
-        return null;
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(BASE_URL + '/posts/' + postId);
+        request.setMethod('DELETE');
+
+        Http http = new Http();
+        HttpResponse response = http.send(request);
+
+        return response.getStatusCode();
     }
 } 
