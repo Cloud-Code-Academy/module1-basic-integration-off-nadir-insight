@@ -26,15 +26,19 @@ public class JSONPlaceholderExercise {
      * @return String - The JSON response from the API
      */
     public static String createPost(String title, String body, Integer userId) {
-        // TODO: Student Implementation
-        // 1. Create a new HTTP request
-        // 2. Set the endpoint URL using BASE_URL + '/posts'
-        // 3. Set the HTTP method to 'POST'
-        // 4. Create a JSON string with the post data
-        // 5. Set the request body
-        // 6. Send the request and get the response
-        // 7. Return the response body as string
-        return null;
+        Map<String, String> dataMap = new Map<String, String>();
+        dataMap.put('favorite language', 'apex');
+
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(BASE_URL + 'posts');
+        request.setMethod('POST');
+        String jsonString = JSON.serialize(dataMap);
+        request.setBody(jsonString);
+        
+        Http http = new Http();
+        HttpResponse response = http.send(request);
+
+        return response.getBody();
     }
     
     /**
